@@ -18,7 +18,7 @@ class RollbackAndRunSeederTagCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Rollback tabel tags and run seeder tag';
+    protected $description = 'Rollback all table  and run seeder tag, motivation_tag';
 
     /**
      * Create a new command instance.

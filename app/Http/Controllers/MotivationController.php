@@ -78,9 +78,12 @@ class MotivationController extends Controller
         $data = $request->all();
         $motivation = Motivation::findOrFail($id);
         // Cek Author
-        if (!$motivation->author()) {
-            return redirect('motivation')->with('msg', 'Access Failed');
-        }
+        // if (!$motivation->author()) {
+        //     return redirect('motivation')->with('msg', 'Access Failed');
+        // }
+
+        // Cek Authorization Policy
+        $this->authorize('update', $motivation);
 
         // Cek IMG
         if ($request->file('img')) {

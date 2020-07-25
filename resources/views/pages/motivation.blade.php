@@ -28,7 +28,7 @@
 
     <div class="row">
         @forelse ($motivations as $motivation)
-        <div class="col-sm-8">
+        <div class="col-sm-6">
             <div class="card mb-4">
                 @if($motivation->img)
                 <a href="/motivation/{{ $motivation->slug }}">
@@ -47,9 +47,13 @@
                     <p class="card-text mb-2">
                         {!! Str::limit($motivation->description, 200, '....') !!}
                     </p>
+                    <hr>
+                    <div>
+                        <a href="" class=""><i class="fa fa-heart-o btn btn-outline-danger btn-sm"></i></a>
+                    </div>
 
                     <div class="d-flex justify-content-between text-secondary">
-                        <small>{{ $motivation->user->name }}</small>
+                        <small>{{ $motivation->user->username }}</small>
                         <small>{{ $motivation->created_at->diffForHumans() }}</small>
                     </div>
                 </div>
@@ -60,25 +64,6 @@
             <h5>Data Belum Ada</h5>
         </div>
         @endforelse
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <h1>Sapi</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque eos qui officia illum, sed
-                        nobis
-                        distinctio similique iure a inventore consectetur voluptates architecto voluptatum molestias
-                        eligendi ducimus fuga in veritatis? Atque nihil corporis facere itaque aliquid deleniti quia
-                        nemo, voluptatibus repellendus. Similique, debitis accusamus vel mollitia voluptatem eos
-                        consequuntur cumque expedita, aspernatur pariatur, fuga dolorum aperiam iure natus nisi!
-                        Animi
-                        quidem ipsam, laboriosam fuga officiis vitae itaque asperiores illo optio voluptates officia
-                        facere molestiae aliquam. Eius autem ex consequatur non deserunt veritatis molestiae,
-                        dolores
-                        unde, eaque vitae optio eum. At veniam dolor quam quasi quo eum iure amet eius omnis?</p>
-                </div>
-            </div>
-        </div>
     </div>
 
 

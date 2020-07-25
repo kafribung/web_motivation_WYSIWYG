@@ -23,7 +23,7 @@
                         <img src="{{ $motivation->user->gravatar() }}" alt="" class="mr-3 rounded-circle" width="40">
 
                         <div class="media-body">
-                            <small class="d-block">{{ $motivation->user->name }}</small>
+                            <small class="d-block">{{ $motivation->user->username }}</small>
                             <small>{{ '@' . $motivation->user->username }}</small>
                         </div>
                     </div>
@@ -33,9 +33,9 @@
                     </p>
                 </div>
 
-                @if ($motivation->author())
+                {{-- @if ($motivation->author())
                 <h6 class="font-italic">Auth Cara Lama</h6>
-                @endif
+                @endif --}}
 
                 <div class="card-footer">
                     {{-- Autorization Policy --}}
@@ -55,9 +55,6 @@
         </div>
     </div>
 </div>
-
-
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -77,6 +74,8 @@
 </div>
 
 @push('after_script')
+{{-- Sweet Alert --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     // CSRF TOKEN ALA AJAX
         // $.ajaxSetup({
@@ -92,7 +91,6 @@
             },
             buttonsStyling: false
             })
-
             swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -113,11 +111,8 @@
                             'Your file has been deleted.',
                             'success',
                             ),
-                            
                             window.location.href = "/motivation";
                             // location.reload();
-
-                            
                         },
                         error : function(){
                             swalWithBootstrapButtons.fire(
@@ -126,7 +121,6 @@
                             'error')
                         }
                     })
-                
                 } else if (
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.cancel
@@ -140,21 +134,16 @@
             })
         }
 </script>
-
+{{-- Modal --}}
 <script>
     jQuery(document).ready(function($) {
         $('#exampleModal').on('show.bs.modal', function(e){
             var button = $(e.relatedTarget);
             var modal  = $(this);
-
             modal.find('.modal-body').load(button.data("remote"));
             modal.find('.modal-title').html(button.data("title"));
-
         });
-
     });
 </script>
-
 @endpush
-
 @endsection

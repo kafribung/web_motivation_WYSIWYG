@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username',
+        'email', 'password', 'username',
     ];
 
     /**
@@ -52,6 +52,6 @@ class User extends Authenticatable
     // Gate / Pengecualian SUper Admin
     public function isAdmin()
     {
-        return $this->name == 'Admin';
+        return $this->username == 'AdminQuotes';
     }
 }
