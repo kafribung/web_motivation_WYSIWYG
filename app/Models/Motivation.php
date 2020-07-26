@@ -23,6 +23,19 @@ class Motivation extends Model
         return $this->belongsToMany('App\Models\Tag');
     }
 
+    // Relation Polymarpic Many to one(LIKE)
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'liketable');
+    }
+
+    // Is Like
+    public function isLike()
+    {
+        return $this->likes()->where('user_id', auth()->user()->id)->count();
+    }
+
+
     // Mutator Arribute
     public function getTakeImgAttribute()
     {

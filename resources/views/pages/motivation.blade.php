@@ -47,11 +47,19 @@
                     <p class="card-text mb-2">
                         {!! Str::limit($motivation->description, 200, '....') !!}
                     </p>
-                    <hr>
-                    <div>
-                        <a href="" class=""><i class="fa fa-heart-o btn btn-outline-danger btn-sm"></i></a>
-                    </div>
 
+                    {{-- Fitur Like --}}
+                    @if (Auth::check())
+                    <div>
+                        <button class="btn {{ $motivation->isLike()? 'btn-danger unlike' : 'btn-light like'}} btn-sm"
+                            data-model="{{ $motivation->id }}" data-type="1">
+                            <i class="fa fa-heart-o"></i>
+                        </button>
+                        <small class="count">{{ $motivation->likes()->count() }}</small>
+                        <p class="warning d-none text-danger">Tidak bisa like diri sendiri</p>
+                    </div>
+                    <hr>
+                    @endif
                     <div class="d-flex justify-content-between text-secondary">
                         <small>{{ $motivation->user->username }}</small>
                         <small>{{ $motivation->created_at->diffForHumans() }}</small>
@@ -75,5 +83,42 @@
         </div>
     </div>
 </div>
+
+@push('after_script')
+<script>
+    // Like
+    $(document).on('click', '.like', function(){
+        let _this = $(this);
+
+        let _url  = '/like/' + _this.attr('data-model') + '/' + _this.attr('data-type');
+        console.log(_url);
+
+        $.get(_url, function(data){
+            if (data == "0") {
+                _this.nextAll(".warning").removeClass("d-none").delay(800).fadeOut(1000);
+                console.log('0');
+            } else {
+                _this.addClass('btn-danger unlike').removeClass('btn-light like');
+
+                let increment = _this.nextAll('.count');
+                increment.html(parseInt(increment.html()) +  1);
+            }
+        });
+    });
+    // Unlike
+    $(document).on('click', '.unlike', function() {
+        let _this = $(this);
+        let _url = '/unlike/' + _this.attr('data-model') + '/' + _this.attr('data-type');
+        console.log(_url);
+
+        $.get(_url, function(data){
+            _this.addClass('btn-light like').removeClass('btn-danger unlike');
+
+            let decrement = _this.nextAll('.count');
+            decrement.html(parseInt(decrement.html()) - 1 );
+        });
+    });
+</script>
+@endpush
 
 @endsection

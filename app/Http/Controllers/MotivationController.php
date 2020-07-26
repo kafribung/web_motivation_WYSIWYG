@@ -16,7 +16,6 @@ class MotivationController extends Controller
     public function index()
     {
         $motivations = Motivation::with('user', 'tags')->latest()->paginate(6);
-
         return view('pages.motivation', compact('motivations'));
     }
 

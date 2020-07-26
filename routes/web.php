@@ -10,18 +10,26 @@ Route::get('/', function () {
 // Route Data Binding
 // Route::get('motivation/{motivation:slug}', 'MotivationController@show');
 
-// File Mnager
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
+
 
 Route::group(['middleware' => 'auth'], function () {
+    // Motivation Login
     Route::resource('motivation', 'MotivationController')->except(['index', 'show']);
+    // Like
+    Route::get('/like/{id}/{type}', 'LikeController@store');
+    // Unlike
+    Route::get('/unlike/{id}/{type}', 'UnlikeController@store');
 });
+// Motivation Not Login
+Route::resource('motivation', 'MotivationController')->only(['index', 'show']);
 // Route Tag
 Route::get('tag/{tag:slug}', 'TagController@show');
 // Route::get('tag/{slug}', 'TagController@show2');
 
-Route::resource('motivation', 'MotivationController')->only(['index', 'show']);
 
+
+// File Mnager
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
 Auth::routes();
